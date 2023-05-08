@@ -1,0 +1,39 @@
+
+
+Atualize o banco de dados para adicionar a nova coluna tabela_nova_id na tabela EntidadeAntiga:
+ALTER TABLE entidade_antiga ADD COLUMN tabela_nova_id BIGINT;
+
+Crie uma interface TableXptoRepository que estenda a interface JpaRepository:
+@Repository
+public interface TableXptoRepository extends JpaRepository<TableXpto, Long> {
+
+}
+
+******
+
+Certifique-se de que a classe TableXpto esteja anotada com @Entity.
+@Entity
+public class TableXpto {
+
+   // código da entidade
+
+}
+
+******
+Certifique-se de que a classe de configuração do banco de dados esteja anotada com @EnableJpaRepositories.
+@Configuration
+@EnableJpaRepositories(basePackages = "com.seupacote.repositories")
+public class JpaConfig {
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        // Configurações do EntityManagerFactory
+    }
+
+    @Bean
+    public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        // Configurações do TransactionManager
+    }
+}
+Com isso, você poderá usar os métodos do TableXptoRepository para acessar os dados da tabela TableXpto no seu banco de dados.
+
